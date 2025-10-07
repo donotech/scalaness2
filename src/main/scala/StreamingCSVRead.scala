@@ -34,7 +34,7 @@ object StreamingCSVRead {
     val productDf = sparkSession.read.schema(csvProductSchema).csv("/home/devraj/product.csv")
     productDf.show()
 
-    val joinedDf = df.join(productDf, "product")
+    val joinedDf = df.join(productDf, Seq("product"), "right_outer")
     val query = joinedDf.writeStream.format("console").outputMode("append").start()
     query.awaitTermination()
 //    println(s"Count ***** " + df.count().toString + "  ****")

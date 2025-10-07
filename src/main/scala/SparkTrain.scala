@@ -1,5 +1,6 @@
 package org.bdec.training
 
+import org.apache.spark.api.java.StorageLevels
 import org.apache.spark.sql.SparkSession
 
 case class SubjectMarks(subject: String, marks: Long)
@@ -10,6 +11,35 @@ case class Student2Spark(name: String, grade: Long, scores: Array[SubjectMarks])
 case class StudentFlat(name: String, grade: Long, subject: String, marks: Long)
 
 object SparkTrain {
+  def cachingSample(spark: SparkSession) = {
+    val file1 = ""
+    val file2 = ""
+
+//    #scenario1
+    val df1 = spark.read.csv(file1)
+    val df2 = spark.read.csv(file2)
+    df1.cache()
+    df2.cache()
+    val dfJoined = df1.join(df2, Seq("field_key"))
+    dfJoined.write.csv("somepath")
+  }
+
+  def cachingSample2(spark: SparkSession) = {
+    val file1 = ""
+    val file2 = ""
+
+    //    #scenario2
+    val df1 = spark.read.csv(file1)
+    val df2 = spark.read.csv(file2)
+    df1.cache()
+    df2.cache()
+    df1.persist(StorageLevels.OFF_HEAP)
+    df1.unpersist()
+    val dfJoined = df1.join(df2, Seq("field_key"))
+    dfJoined.write.csv("somepath")
+    print(df1.count())
+  }
+
   def main(args: Array[String]): Unit = {
     val sparkSession = SparkSession.builder()
       .config("spark.serializer", "org.apache.spark.serializer.KryoSerializer")
