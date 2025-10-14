@@ -31,7 +31,7 @@ object StreamingCSVRead {
     val df = sparkSession.readStream.schema(csvSchema)
       .csv("/home/devraj/sparkdir")
 
-    val productDf = sparkSession.read.schema(csvProductSchema).csv("/home/devraj/product.csv")
+    val productDf = sparkSession.read.schema(csvProductSchema).csv()
     productDf.show()
 
     val joinedDf = df.join(productDf, Seq("product"), "right_outer")
