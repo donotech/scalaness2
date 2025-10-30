@@ -30,8 +30,8 @@ object AzureEventHubReader {
       .start()
 
     query.awaitTermination()
-    val urlStr = "jdbc:sqlserver://kraftsynapse1-ondemand.sql.azuresynapse.net:1433;database=master;user=sqladmin@kraftsynapse1;password={your_password_here};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.sql.azuresynapse.net;loginTimeout=30;"
-    spark.read.jdbc(url = urlStr, table = "your table name")
+//    val urlStr = "jdbc:sqlserver://kraftsynapse1-ondemand.sql.azuresynapse.net:1433;database=master;user=sqladmin@kraftsynapse1;password={your_password_here};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.sql.azuresynapse.net;loginTimeout=30;"
+//    spark.read.jdbc(url = urlStr, table = "your table name")
 
   }
 }
