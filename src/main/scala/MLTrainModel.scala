@@ -57,9 +57,10 @@ object LinearReg {
     println(trainedModel.coefficients)
     val testPredictionsDf = trainedModel.transform(testDf)
     testPredictionsDf.show()
+    trainedModel.save("/home/devraj/trainedlr_model")
     val evaluator = new RegressionEvaluator().setMetricName("rmse").evaluate(testPredictionsDf)
     println("RMSE = " + evaluator)
-
+    Thread.sleep(1000000)
   }
 
 }
